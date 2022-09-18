@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title></title>
+  	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+</head>
+<body>
+<header>
+	<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/index" style="color:white">Product management</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/create_prod" style="color:white">Add products</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search by name" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search </button>
+    </form>
+  </div>
+</nav>
+</header>
+<br /><br /><br />
+<div class="container">
+  <div class="row col-md-8 offset-md-2">
+    <div class="card">
+      <div class="card-header">
+          <h2 class="text-center">Create a new employee</h2>
+      </div>
+      <div th:if="${param.success}">
+          <div class="alert alert-info">
+            Product added 
+          </div>
+      </div>
+      <div class="card-body">
+          <form
+            method="post"
+            role="form"
+            th:action="@{/addemp/save/}"
+            th:object="${employee}"
+          >
+            <div class="form-group mb-3">
+              <label class="form-label">Name</label>
+              <input
+                      class="form-control"
+                      id="firstName"
+                      name="firstName"
+                      placeholder="Enter name"
+                      th:field="*{firstname}"
+                      type="text"
+                      required
+              />
+              <p th:errors = "*{firstname}" class="text-danger"
+              th:if="${#fields.hasErrors('firstname')}"></p>
+            </div>
+
+            <div class="form-group mb-3">
+              <label class="form-label">Last name</label>
+              <input
+                      class="form-control"
+                      id="lastname"
+                      name="lastname"
+                      placeholder="Last name"
+                      th:field="*{lastname}"
+                      type="text"
+                      required
+              />
+              <p th:errors = "*{lastname}" class="text-danger"
+                 th:if="${#fields.hasErrors('lastname')}"></p>
+            </div>
+
+            <div class="form-group mb-3">
+              <label class="form-label">Salary</label>
+              <input
+                      class="form-control"
+                      id="email"
+                      name="email"
+                      placeholder="Salary"
+                      th:field="*{salary}"
+                      type="number"
+                      required
+              />
+                 <p class="alert alert-danger" 
+                 th:if="${#fields.hasErrors('salary')}" 
+                 th:errors="*{salary}" />
+            </div>
+
+            <div class="form-group mb-3">
+              <label class="form-label">Phone number</label>
+              <input
+                      class="form-control"
+                      id="password"
+                      name="password"
+                      placeholder="Phone number"
+                      th:field="*{phone}"
+                      type="number"
+                      required
+              />
+              <p th:errors = "*{phone}" class="text-danger"
+                 th:if="${#fields.hasErrors('phone')}"></p>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary" type="submit">Save employee</button>
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

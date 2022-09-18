@@ -1,0 +1,70 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title></title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+<header>
+	<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/app/index" style="color:white">Product management</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/app/create_prod" style="color:white">products</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/app/addemp" style="color:white">Employees</a>
+      </li>
+    </ul>
+    <form action="/app/findprodname" method="post" class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" name="key" type="search" placeholder="Search by name" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search </button>
+    </form>
+  </div>
+</nav>
+</header>
+    <div class="col-md-12" align="center">
+        <br />
+    </div>
+    <div class="col-md-12" align="center">
+        <h3>Products</h3>
+        <table class="table table-dark">
+        	<thead>
+        		<tr>
+        			<th>#</th>
+        			<th>Name</th>
+        			<th>Price</th>
+        			<th>Quantity</th>
+        			<th>Category</th>
+        			<th>Photo</th>
+        			<th>Action</th>
+        		</tr>
+        	</thead>
+        	<tbody>
+        		<tr th:each="product:${productlist}">
+        		<td th:text="*{product.id}"></td>
+        		<td th:text="*{product.name}"></td>
+        		<td th:text="*{product.price}"></td>
+        		<td th:text="*{product.quantity}"></td>
+        		<td th:text="*{product.category}"></td> 
+        		<td>
+        		<span th:if="${product.photo==''}"><img class="img img-circle" width="50" height="50" src="/photos/noimage.jpg"></span>
+        		<span th:unless="${product.photo==''}">
+        		<!-- <img th:src="@{/photos/{img} (img=${product.photo})"> -->
+        		<img class="img img-circle" width="50" height="50" th:src="@{'/photos/'+${product.photo}}"/></span>
+        		</td>
+        		<td><a th:href="@{/update_prod/{id} (id=${product.id})}"><button type="button" class="btn btn-outline-primary">Update</button></a></td>
+				<td><a th:href="@{/delete/{id} (id=${product.id})}"><button type="button" class="btn btn-outline-danger">Delete</button></a></td>
+          		</tr>
+        		
+        	</tbody>
+        </table>
+    </div>
+</body>
+</html>
